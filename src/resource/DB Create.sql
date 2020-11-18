@@ -6,7 +6,7 @@ CREATE TABLE customer (
 
 CREATE TABLE item (
 	item_id	INT(16) AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name TINYTEXT NOT NULL,
+    name VARCHAR NOT NULL,
     value DECIMAL(5,2) NOT NULL
 );
 
@@ -20,5 +20,3 @@ CREATE TABLE orders_item (
 	FOREIGN KEY (item_id) REFERENCES item(item_id),
 	quantity INT(8) NOT NULL
 );
-
-test
