@@ -20,3 +20,5 @@ CREATE TABLE orders_item (
 	FOREIGN KEY (item_id) REFERENCES item(item_id),
 	quantity INT(8) NOT NULL
 );
+
+test
