@@ -13,10 +13,10 @@ public class Order {
 		this.userID = userID;
 	}
 
-	public Order(Long orderID, Long userID, OrderItems item) {
+	public Order(Long orderID, Long userID, List<OrderItems> item) {
 		this.orderID = orderID;
 		this.userID = userID;
-		items.add(item);
+		this.items = item;
 	}
 
 	public Long getOrderID() {

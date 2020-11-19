@@ -1,24 +1,24 @@
 package com.qa.ims.persistence.domain;
 
 public class OrderItems {
-    private int itemID;
+    private long itemID;
     private int quantity;
 
-    public OrderItems(int itemID){
+    public OrderItems(long itemID){
         this.itemID = itemID;
         this.quantity = 1;
     }
 
-    public OrderItems(int itemID, int quantity) {
+    public OrderItems(long itemID, int quantity) {
         this.itemID = itemID;
         this.quantity = quantity;
     }
 
-    public int getItemID() {
+    public long getItemID() {
         return itemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setItemID(long itemID) {
         this.itemID = itemID;
     }
 
