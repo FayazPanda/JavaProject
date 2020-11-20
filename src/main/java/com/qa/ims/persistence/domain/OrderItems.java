@@ -2,14 +2,14 @@ package com.qa.ims.persistence.domain;
 
 public class OrderItems {
     private long itemID;
-    private int quantity;
+    private long quantity;
 
     public OrderItems(long itemID){
         this.itemID = itemID;
         this.quantity = 1;
     }
 
-    public OrderItems(long itemID, int quantity) {
+    public OrderItems(long itemID, long quantity) {
         this.itemID = itemID;
         this.quantity = quantity;
     }
@@ -22,7 +22,7 @@ public class OrderItems {
         this.itemID = itemID;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 

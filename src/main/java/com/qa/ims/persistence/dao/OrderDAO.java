@@ -38,7 +38,6 @@ public class OrderDAO implements Dao<Order> {
 				ResultSet resultSet = statement.executeQuery("select * from order");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
-				//TEST THE BELLOW THING BECAUSE I DON'T KNOW IF THIS WORKS
 				items = oi.readAllItems(resultSet.getLong("order_id"));
 				orders.add(modelFromResultSet(resultSet));
 			}
@@ -75,7 +74,7 @@ public class OrderDAO implements Dao<Order> {
 			statement.executeUpdate("INSERT INTO orders(user_id) values('" + order.getUserID() + "')");
 			Order newOrder = readLatest();
 			for (int i = 0;i<order.getItems().size();i++){
-				oi.create(newOrder.getOrderID(), (OrderItems) order.getItems().get(i));
+				oi.create(newOrder.getOrderID(), order.getOrderItems(i));
 			}
 			return readLatest();
 		} catch (Exception e) {
@@ -111,7 +110,7 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("UPDATE orders SET user_id='" + order.getUserID() + "' WHERE order_id =" + order.getOrderID());
 			for (int i = 0;i<order.getItems().size();i++){
-				oi.updateQuantity(order.getOrderID(), (OrderItems) order.getItems().get(i));
+				oi.updateQuantity(order.getOrderID(), order.getOrderItems(i));
 			}
 			return readOrder(order.getOrderID());
 		} catch (Exception e) {

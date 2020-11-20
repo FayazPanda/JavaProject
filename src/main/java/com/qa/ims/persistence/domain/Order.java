@@ -8,9 +8,9 @@ public class Order {
 	private Long userID;
 	private List<OrderItems> items = new ArrayList<>();
 
-	public Order(Long orderID, Long userID) {
-		this.orderID = orderID;
+	public Order(Long userID,List<OrderItems> item) {
 		this.userID = userID;
+		this.items = item;
 	}
 
 	public Order(Long orderID, Long userID, List<OrderItems> item) {
@@ -37,6 +37,14 @@ public class Order {
 
 	public List getItems(){
 		return items;
+	}
+
+	public OrderItems getOrderItems(int x){
+		if (x > items.size()){
+			return null;
+		} else {
+			return items.get(x);
+		}
 	}
 
 	public void clearItems(){
