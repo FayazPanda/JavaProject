@@ -71,7 +71,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO orders(user_id) values('" + order.getUserID() + "')");
+			statement.executeUpdate("INSERT INTO orders(user_id) values(" + order.getUserID() + ")");
 			Order newOrder = readLatest();
 			for (int i = 0;i<order.getItems().size();i++){
 				oi.create(newOrder.getOrderID(), order.getOrderItems(i));

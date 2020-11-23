@@ -64,8 +64,8 @@ public class OrderItemsDAO {
     public OrderItems create(long id, OrderItems orderItems) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeUpdate("INSERT INTO orders_item(order_id,item_id,quantity) VALUES(" + id + ",'" + orderItems.getItemID()
-                    + "','" + orderItems.getQuantity() + "')");
+            statement.executeUpdate("INSERT INTO orders_item(order_id,item_id,quantity) VALUES(" + id + "," + orderItems.getItemID()
+                    + "," + orderItems.getQuantity() + ")");
             return readLatest();
         } catch (Exception e) {
             LOGGER.debug(e);
