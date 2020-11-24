@@ -1,12 +1,10 @@
 package com.qa.ims.persistence.domain;
 
-import java.util.Objects;
-
 public class OrderItems {
     private long itemID;
     private long quantity;
 
-    public OrderItems(long itemID){
+    public OrderItems(long itemID) {
         this.itemID = itemID;
         this.quantity = 1;
     }
@@ -28,19 +26,19 @@ public class OrderItems {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        if (quantity <= 0) {
+            this.quantity = 1;
+        }
+        this.quantity = quantity;
+    }
+
     public void addQuantity() {
         this.quantity += 1;
     }
 
     public void addQuantity(int quantity) {
         this.quantity += quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        if (quantity <= 0){
-            this.quantity = 1;
-        }
-        this.quantity = quantity;
     }
 
     public void removeQuantity(int quantity) {

@@ -77,7 +77,7 @@ public class OrderItemsDAO {
     public OrderItems readOrderItems(long orderID, long itemID) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM order_item WHERE order_id =" + orderID+" AND item_id="+itemID);) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order_item WHERE order_id =" + orderID + " AND item_id=" + itemID)) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -91,17 +91,17 @@ public class OrderItemsDAO {
      * Updates a order in the database
      *
      * @param orderItems - takes in a order object, the id field will be used to
-     *              update that order in the database
+     *                   update that order in the database
      * @return
      */
-    public OrderItems updateQuantity(long id,OrderItems orderItems) {
+    public OrderItems updateQuantity(long id, OrderItems orderItems) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            if (orderItems.getQuantity() == 0){
-                statement.executeUpdate("DELETE FROM order_item WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
+            if (orderItems.getQuantity() == 0) {
+                statement.executeUpdate("DELETE FROM order_item WHERE order_id =" + id + " AND item_id=" + orderItems.getItemID());
                 return null;
             } else {
-                statement.executeUpdate("UPDATE order_item SET quantity ='" + orderItems.getQuantity() + "' WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
+                statement.executeUpdate("UPDATE order_item SET quantity ='" + orderItems.getQuantity() + "' WHERE order_id =" + id + " AND item_id=" + orderItems.getItemID());
                 return readOrderItems(id, orderItems.getItemID());
             }
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class OrderItemsDAO {
     public int delete(long orderID, long itemID) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM order_item WHERE order_id =" +orderID+" AND item_id="+itemID);
+            return statement.executeUpdate("DELETE FROM order_item WHERE order_id =" + orderID + " AND item_id=" + itemID);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
