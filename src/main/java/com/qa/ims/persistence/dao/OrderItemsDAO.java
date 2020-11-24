@@ -30,7 +30,7 @@ public class OrderItemsDAO {
     public List<OrderItems> readAllItems(long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders_item WHERE order_id=" + id)) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order_item WHERE order_id=" + id)) {
             List<OrderItems> orderitems = new ArrayList<>();
             while (resultSet.next()) {
                 orderitems.add(modelFromResultSet(resultSet));
@@ -46,7 +46,7 @@ public class OrderItemsDAO {
     public OrderItems readLatest() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders_item ORDER BY order_id DESC LIMIT 1")) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order_item ORDER BY order_id DESC LIMIT 1")) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class OrderItemsDAO {
     public OrderItems create(long id, OrderItems orderItems) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeUpdate("INSERT INTO orders_item(order_id,item_id,quantity) VALUES(" + id + "," + orderItems.getItemID()
+            statement.executeUpdate("INSERT INTO order_item(order_id,item_id,quantity) VALUES(" + id + "," + orderItems.getItemID()
                     + "," + orderItems.getQuantity() + ")");
             return readLatest();
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class OrderItemsDAO {
     public OrderItems readOrderItems(long orderID, long itemID) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders_item WHERE order_id =" + orderID+" AND item_id="+itemID);) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order_item WHERE order_id =" + orderID+" AND item_id="+itemID);) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -98,10 +98,10 @@ public class OrderItemsDAO {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
             if (orderItems.getQuantity() == 0){
-                statement.executeUpdate("DELETE FROM orders_item WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
+                statement.executeUpdate("DELETE FROM order_item WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
                 return null;
             } else {
-                statement.executeUpdate("UPDATE orders_item SET quantity ='" + orderItems.getQuantity() + "' WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
+                statement.executeUpdate("UPDATE order_item SET quantity ='" + orderItems.getQuantity() + "' WHERE order_id =" + id+" AND item_id="+orderItems.getItemID());
                 return readOrderItems(id, orderItems.getItemID());
             }
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class OrderItemsDAO {
     public int delete(long orderID, long itemID) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM orders_item WHERE order_id =" +orderID+" AND item_id="+itemID);
+            return statement.executeUpdate("DELETE FROM order_item WHERE order_id =" +orderID+" AND item_id="+itemID);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());

@@ -25,7 +25,7 @@ public class ItemDAO implements Dao<Item> {
 	}
 
 	/**
-	 * Reads all customers from the database
+	 * Reads all items from the database
 	 * 
 	 * @return A list of items
 	 */
@@ -60,16 +60,16 @@ public class ItemDAO implements Dao<Item> {
 	}
 
 	/**
-	 * Creates a customer in the database
+	 * Creates a item in the database
 	 * 
-	 * @param item - takes in a customer object. id will be ignored
+	 * @param item - takes in a item object. id will be ignored
 	 */
 	@Override
 	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO item(name, value) values('" + item.getName()
-					+ "','" + item.getValue() + "')");
+					+ "'," + item.getValue() + ")");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -92,18 +92,18 @@ public class ItemDAO implements Dao<Item> {
 	}
 
 	/**
-	 * Updates a customer in the database
+	 * Updates a item in the database
 	 * 
-	 * @param item - takes in a customer object, the id field will be used to
-	 *                 update that customer in the database
+	 * @param item - takes in a item object, the id field will be used to
+	 *                 update that item in the database
 	 * @return
 	 */
 	@Override
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 			 Statement statement = connection.createStatement();) {
-			 statement.executeUpdate("update item set name ='" + item.getName() + "', value ='"
-					+ item.getValue() + "' where item_id =" + item.getId());
+			 statement.executeUpdate("update item set name ='" + item.getName() + "', value ="
+					+ item.getValue() + " where item_id =" + item.getId());
 			 return readItem(item.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -113,7 +113,7 @@ public class ItemDAO implements Dao<Item> {
 	}
 
 	/**
-	 * Deletes a customer in the database
+	 * Deletes a item in the database
 	 * 
 	 * @param id - id of the item
 	 */

@@ -36,12 +36,14 @@ public class OrderControllerTest {
 		items.add(new OrderItems(2,3));
 		final Order created = new Order(USERID,items);
 
-		Mockito.when(utils.getString()).thenReturn(String.valueOf(USERID),String.valueOf(items.get(0).getItemID()),String.valueOf(items.get(0).getQuantity()),"no");
+		Mockito.when(utils.getLong()).thenReturn(USERID,items.get(0).getItemID(),items.get(0).getQuantity());
+		Mockito.when(utils.getString()).thenReturn("no");
 		Mockito.when(dao.create(created)).thenReturn(created);
 
 		assertEquals(created, controller.create());
 
-		Mockito.verify(utils, Mockito.times(2)).getString();
+		Mockito.verify(utils, Mockito.times(3)).getLong();
+		Mockito.verify(utils, Mockito.times(1)).getString();
 		Mockito.verify(dao, Mockito.times(1)).create(created);
 	}
 
@@ -62,20 +64,21 @@ public class OrderControllerTest {
 
 	@Test
 	public void testUpdate() {
+		final long ORDERID = 1L;
 		final long USERID = 2L;
 		List<OrderItems> items = new ArrayList<>();
 		items.add(new OrderItems(3,4));
 		final Order created = new Order(USERID,items);
 		Order updated = new Order(1L,USERID,items);
 
-		Mockito.when(this.utils.getLong()).thenReturn(1L);
-		Mockito.when(utils.getString()).thenReturn(String.valueOf(USERID),String.valueOf(items.get(0).getItemID()),String.valueOf(items.get(0).getQuantity()),"no");
+		Mockito.when(utils.getLong()).thenReturn(ORDERID,USERID,items.get(0).getItemID(),items.get(0).getQuantity());
+		Mockito.when(utils.getString()).thenReturn("no");
 		Mockito.when(this.dao.update(updated)).thenReturn(updated);
 
 		assertEquals(updated, this.controller.update());
 
-		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-		Mockito.verify(this.utils, Mockito.times(2)).getString();
+		Mockito.verify(utils, Mockito.times(4)).getLong();
+		Mockito.verify(utils, Mockito.times(1)).getString();
 		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
 	}
 
@@ -90,6 +93,19 @@ public class OrderControllerTest {
 
 		Mockito.verify(utils, Mockito.times(1)).getLong();
 		Mockito.verify(dao, Mockito.times(1)).delete(ID);
+	}
+
+	@Test
+	public void testCalculateOrder() {
+		final long ID = 1L;
+
+		Mockito.when(utils.getLong()).thenReturn(ID);
+		Mockito.when(dao.calculateOrder(ID)).thenReturn(514.92f);
+
+		assertEquals(514.92f, this.controller.calculateOrder(), 0.01);
+
+		Mockito.verify(utils, Mockito.times(1)).getLong();
+		Mockito.verify(dao, Mockito.times(1)).calculateOrder(ID);
 	}
 
 }

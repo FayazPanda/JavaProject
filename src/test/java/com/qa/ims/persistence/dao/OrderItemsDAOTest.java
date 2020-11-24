@@ -35,19 +35,20 @@ public class OrderItemsDAOTest {
 	public void testReadAll() {
 		List<OrderItems> expected = new ArrayList<>();
 		expected.add(new OrderItems(1,5));
+		expected.add(new OrderItems(2,3));
 		assertEquals(expected, DAO.readAllItems(1));
 	}
 
 	@Test
 	public void testReadLatest() {
-		assertEquals(new OrderItems(2,3), DAO.readLatest());
+		assertEquals(new OrderItems(1,5), DAO.readLatest());
 	}
 
 	@Test
 	public void testRead() {
 		final long orderID = 1L;
 		final long itemID = 1L;
-		assertEquals(new OrderItems(itemID,5), DAO.readOrderItems(orderID,itemID));
+		assertEquals(new OrderItems(itemID,5L), DAO.readOrderItems(orderID,itemID));
 	}
 
 	@Test

@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS `ims`.`item` (
 );
 CREATE TABLE IF NOT EXISTS `ims`.`order` (
     order_id INT(16) AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES customer(user_id)
+    user_id	INT(16) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS `ims`.`order_item` (
-    FOREIGN KEY (order_id) REFERENCES `order`(order_id),
-    FOREIGN KEY (item_id) REFERENCES item(item_id),
+    order_id INT(16) NOT NULL,
+    item_id	INT(16) NOT NULL,
     quantity INT(8) NOT NULL
 );

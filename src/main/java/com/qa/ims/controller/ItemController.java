@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 /**
- * Takes in customer details for CRUD functionality
+ * Takes in item details for CRUD functionality
  *
  */
 public class ItemController implements CrudController<Item> {
@@ -26,7 +26,7 @@ public class ItemController implements CrudController<Item> {
 	}
 
 	/**
-	 * Reads all customers to the logger
+	 * Reads all items to the logger
 	 */
 	@Override
 	public List<Item> readAll() {
@@ -38,21 +38,21 @@ public class ItemController implements CrudController<Item> {
 	}
 
 	/**
-	 * Creates a customer by taking in user input
+	 * Creates a item by taking in user input
 	 */
 	@Override
 	public Item create() {
 		LOGGER.info("Please enter the product name");
 		String name = utils.getString();
 		LOGGER.info("Please enter the product value");
-		float value = utils.getDouble().floatValue();
+		double value = utils.getDouble();
 		Item item = itemDAO.create(new Item(name,value));
 		LOGGER.info("Item created");
 		return item;
 	}
 
 	/**
-	 * Updates an existing customer by taking in user input
+	 * Updates an existing item by taking in user input
 	 */
 	@Override
 	public Item update() {
@@ -61,14 +61,14 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter the product name");
 		String name = utils.getString();
 		LOGGER.info("Please enter the product value");
-		float value = utils.getDouble().floatValue();
+		double value = utils.getDouble();
 		Item item = itemDAO.update(new Item(id,name,value));
 		LOGGER.info("Customer Updated");
 		return item;
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
+	 * Deletes an existing item by the id of the item
 	 * 
 	 * @return
 	 */

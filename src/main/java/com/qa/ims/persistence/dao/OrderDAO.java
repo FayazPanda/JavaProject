@@ -22,8 +22,10 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long userID = resultSet.getLong("user_id");
-		Long itemID = resultSet.getLong("item_id");
-		return new Order(userID,itemID,items);
+		Long orderID = resultSet.getLong("order_id");
+		items.clear();
+		items = oi.readAllItems(orderID);
+		return new Order(orderID,userID,items);
 	}
 
 	/**
@@ -35,10 +37,9 @@ public class OrderDAO implements Dao<Order> {
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from order");) {
+				ResultSet resultSet = statement.executeQuery("select * from `order`");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
-				items = oi.readAllItems(resultSet.getLong("order_id"));
 				orders.add(modelFromResultSet(resultSet));
 			}
 			return orders;
@@ -52,7 +53,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM order ORDER BY order_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM `order` ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -71,7 +72,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO orders(user_id) values(" + order.getUserID() + ")");
+			statement.executeUpdate("INSERT INTO `order`(user_id) values(" + order.getUserID() + ")");
 			Order newOrder = readLatest();
 			for (int i = 0;i<order.getItems().size();i++){
 				oi.create(newOrder.getOrderID(), order.getOrderItems(i));
@@ -87,7 +88,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readOrder(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where order_id = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM `order` where order_id = " + id);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -108,7 +109,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("UPDATE orders SET user_id='" + order.getUserID() + "' WHERE order_id =" + order.getOrderID());
+			statement.executeUpdate("UPDATE `order` SET user_id=" + order.getUserID() + " WHERE order_id =" + order.getOrderID());
 			for (int i = 0;i<order.getItems().size();i++){
 				oi.updateQuantity(order.getOrderID(), order.getOrderItems(i));
 			}
@@ -129,13 +130,23 @@ public class OrderDAO implements Dao<Order> {
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("DELETE FROM orders_item WHERE order_id = " + id);
-			return statement.executeUpdate("delete from orders where order_id = " + id);
+			statement.executeUpdate("DELETE FROM order_item WHERE order_id = " + id);
+			return statement.executeUpdate("delete from `order` where order_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
+	}
+
+	public float calculateOrder(long id){
+		Order order = readOrder(id);
+		ItemDAO itemDAO = new ItemDAO();
+		float cost = 0;
+		for (int i = 0;i<order.getItems().size();i++){
+			cost += (order.getOrderItems(i).getQuantity() * itemDAO.readItem(order.getOrderItems(i).getItemID()).getValue());
+		}
+		return cost;
 	}
 
 }

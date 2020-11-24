@@ -1,5 +1,7 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class OrderItems {
     private long itemID;
     private long quantity;
@@ -48,5 +50,14 @@ public class OrderItems {
     @Override
     public String toString() {
         return "Item ID:" + itemID + " Quantity:" + quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItems that = (OrderItems) o;
+        return itemID == that.itemID &&
+                quantity == that.quantity;
     }
 }

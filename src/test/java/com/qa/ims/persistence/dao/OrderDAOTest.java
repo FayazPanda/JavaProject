@@ -74,4 +74,9 @@ public class OrderDAOTest {
 	public void testDelete() {
 		assertEquals(1, DAO.delete(1));
 	}
+
+	@Test
+	public void testCalculateOrder() {
+		assertEquals(514.92f,DAO.calculateOrder(1),0.01);
+	}
 }

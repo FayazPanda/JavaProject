@@ -1,4 +1,4 @@
-INSERT INTO `ims`.`customer` (`first_name`, `surname`) VALUES ('jordan', 'patel');
+INSERT INTO `ims`.`customer` (`firstname`, `surname`) VALUES ('jordan', 'patel');
 INSERT INTO `ims`.`item` (`name`, `value`) VALUES ('figure', 99.99);
 INSERT INTO `ims`.`item` (`name`, `value`) VALUES ('cup', 4.99);
 INSERT INTO `ims`.`order` (`user_id`) VALUES (1);

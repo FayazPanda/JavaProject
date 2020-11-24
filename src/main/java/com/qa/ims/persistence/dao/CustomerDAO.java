@@ -82,7 +82,7 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer readCustomer(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customer where id = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM customer where user_id = " + id);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -103,8 +103,8 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update customer set first_name ='" + customer.getFirstName() + "', surname ='"
-					+ customer.getSurname() + "' where id =" + customer.getId());
+			statement.executeUpdate("update customer set firstname ='" + customer.getFirstName() + "', surname ='"
+					+ customer.getSurname() + "' where user_id =" + customer.getId());
 			return readCustomer(customer.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -122,7 +122,7 @@ public class CustomerDAO implements Dao<Customer> {
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			return statement.executeUpdate("delete from customer where id = " + id);
+			return statement.executeUpdate("delete from customer where user_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
