@@ -2,6 +2,7 @@ package com.qa.ims.persistence.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
 
@@ -93,22 +94,12 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Order other = (Order) obj;
-        if (orderID == null) {
-            if (other.orderID != null)
-                return false;
-        } else if (!orderID.equals(other.orderID))
-            return false;
-        if (userID == null) {
-            return other.userID == null;
-        } else return userID.equals(other.userID);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(orderID, order.orderID) &&
+                Objects.equals(userID, order.userID) &&
+                Objects.equals(items, order.items);
     }
-
 }

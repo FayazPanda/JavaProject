@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public enum Action {
     CREATE("To save a new entity into the database"), READ("To read an entity from the database"),
     UPDATE("To change an entity already in the database"), DELETE("To remove an entity from the database"),
-	CALCULATE("Calculate the value of the order"), RETURN("To return to domain selection");
+    CALCULATE("Calculate the value of the order"), RETURN("To return to domain selection");
 
     public static final Logger LOGGER = LogManager.getLogger();
 
