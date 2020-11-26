@@ -20,15 +20,15 @@ Have a functioning MySQL Database set up on your localhost on the port: `3306`
 
 Navigate to where you have downloaded the jar file then right click and open bash
 
-![open bash screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/jira.png)
+![open bash screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/tut1.png)
 
 Then type **java -jar fat.jar** replacing the fat with whatever you might have renamed it to
 
-![run command screenshot](.\images\tut2.png)
+![run command screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/tut2.png)
 
 To test that the system is running, log in and you should be greeted with the following text:
 
-![Entity usage Screenshot](.\images\tut3.png)
+![Entity usage Screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/tut3.png)
 
 ## Running the tests
 
@@ -68,7 +68,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 The project was done in SCRUM methodology using jira to keep track of the tasks and bugs as it was coded.
 
-![Jira Screenshot](.\images\jira.png)
+![Jira Screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/jira.png)
 
 ## Authors
 
