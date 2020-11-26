@@ -20,7 +20,7 @@ Have a functioning MySQL Database set up on your localhost on the port: `3306`
 
 Navigate to where you have downloaded the jar file then right click and open bash
 
-![open bash screenshot](.\images\tut1.png)
+![open bash screenshot](https://github.com/FayazPanda/JavaProject/blob/main/images/jira.png)
 
 Then type **java -jar fat.jar** replacing the fat with whatever you might have renamed it to
 
