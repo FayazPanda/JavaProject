@@ -100,7 +100,7 @@ public class OrderControllerTest {
         final long ID = 1L;
 
         Mockito.when(utils.getLong()).thenReturn(ID);
-        Mockito.when(dao.calculateOrder(ID)).thenReturn(514.92f);
+        Mockito.when(dao.calculateOrder(ID)).thenReturn(514.92d);
 
         assertEquals(514.92f, this.controller.calculateOrder(), 0.01);
 

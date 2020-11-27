@@ -107,10 +107,11 @@ public class OrderController implements CrudController<Order> {
      *
      * @return
      */
-    public float calculateOrder() {
+    public double calculateOrder() {
         LOGGER.info("Please enter the id of the order you want to calculate");
         long id = utils.getLong();
-        return orderDAO.calculateOrder(id);
+        double calc = orderDAO.calculateOrder(id);
+        LOGGER.info("The total of the selected order is :£" + calc);
+        return calc;
     }
-
 }

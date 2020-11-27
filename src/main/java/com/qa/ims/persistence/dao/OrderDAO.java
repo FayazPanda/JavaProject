@@ -139,10 +139,10 @@ public class OrderDAO implements Dao<Order> {
         return 0;
     }
 
-    public float calculateOrder(long id) {
+    public double calculateOrder(long id) {
         Order order = readOrder(id);
         ItemDAO itemDAO = new ItemDAO();
-        float cost = 0;
+        double cost = 0;
         for (int i = 0; i < order.getItems().size(); i++) {
             cost += (order.getOrderItems(i).getQuantity() * itemDAO.readItem(order.getOrderItems(i).getItemID()).getValue());
         }
